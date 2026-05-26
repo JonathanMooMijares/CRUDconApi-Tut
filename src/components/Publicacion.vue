@@ -1,11 +1,36 @@
+<script setup>
+import axios from 'axios';
+import { defineProps } from 'vue';
+import {RouterLink, useRouter} from 'vue-router';
+
+const router = useRouter();
+const props = defineProps({
+    publicacion: Object
+});
+
+const deletePublicacion = async (publicacionId) =>{
+    try {
+        const confirm = window.confirm('Estás seguro de que quieres eliminar esta publicación?')
+        if(confirm){
+            await axios.delete(`https://localhost:8080/publicaciones/${publicacionId}`);
+            router.push('/');
+        }
+    } catch(error){
+        console.error("Erro en el Fetch", error)
+    }
+}
+
+</script>
+
+
 <template>
     <tr>
-            <td>1</td>
-            <td>Hola Mundo!</td>
+            <td>{{ publicacion.id }}</td>
+            <td>{{publicaicon.title}}</td>
             <td>
-                <button class="btn btn-green">0</button>
-                <button class="btn btn-blue">/</button>
-                <button class="btn btn-red">x</button>
+                <RouterLink :to="`/publicaciones/${publicacion.id}`" class="btn btn-green">O</RouterLink>
+                <RouterLink :to="`/publicaciones/edit/${publicacion.id}`" class="btn btn-blue">/</RouterLink>
+                <button @click="deletePublicacion(publicacion.id)" class="btn btn-red">x</button>
             </td>
         </tr>
 </template>
