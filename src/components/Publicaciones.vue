@@ -1,19 +1,37 @@
+<script setup>
+import {onMounted, reactive} from 'vue';
+import { RouterLink } from 'vue-router';
+import axios from 'axios';
+import Publicacion from '@/components/Publicacion.vue';
+
+const state = reactive ({
+    publicaciones: []
+})
+
+onMounted(async () => {
+    try{
+        const response = await axios.get('https://localhost:8080/publicaciones');
+        state.publicaciones = response.data;
+    } catch(error){
+        console.error('Error en el Fetch', error);
+    }
+});
+</script>
+
 <template>
-    <h1>Todas las Publicaciones</h1>
-    <table id="posts">
-        <tr>
-            <th>S.N</th>
-            <th>Titulo</th>
-            <th>Acción</th>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>Hola Mundo!</td>
-            <td>
-                <button class="btn btn-green">0</button>
-                <button class="btn btn-blue">/</button>
-                <button class="btn btn-red">x</button>
-            </td>
-        </tr>
-    </table>
+    <div class="center-container">
+        <h1>Todas las Publicaciones</h1>
+        <RouterLink :to="`/`" class="btn btn-blue">Regresar</RouterLink>
+        <RouterLink :to="`/publicaciones/añadir`" class="btn btn-green">Añadir Publicación</RouterLink>
+        <br />
+        <br />
+        <table id="publicaciones">
+            <tr>
+                <th>S.N</th>
+                <th>Titulo</th>
+                <th>Acción</th>
+            </tr>
+            <Publicacion v-for="publicacion in state.publicaciones" :key="publicacion.id" :publicacion="publicacion"/>
+        </table>
+    </div>
 </template>
