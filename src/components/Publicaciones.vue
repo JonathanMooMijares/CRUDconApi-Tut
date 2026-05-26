@@ -10,7 +10,7 @@ const state = reactive ({
 
 onMounted(async () => {
     try{
-        const response = await axios.get('https://localhost:8080/publicaciones');
+        const response = await axios.get('http://localhost:8080/publicaciones');
         state.publicaciones = response.data;
     } catch(error){
         console.error('Error en el Fetch', error);
@@ -22,7 +22,7 @@ onMounted(async () => {
     <div class="center-container">
         <h1>Todas las Publicaciones</h1>
         <RouterLink :to="`/`" class="btn btn-blue">Regresar</RouterLink>
-        <RouterLink :to="`/publicaciones/añadir`" class="btn btn-green">Añadir Publicación</RouterLink>
+        <RouterLink :to="'/publicaciones/add'" class="btn btn-green">Añadir Publicación</RouterLink>
         <br />
         <br />
         <table id="publicaciones">

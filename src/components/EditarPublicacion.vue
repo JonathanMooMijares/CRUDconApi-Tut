@@ -1,26 +1,40 @@
 <script setup>
 import axios from 'axios';
-import { reactive } from 'vue';
-import router from '@/router';
+import { onMounted, reactive } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+
+const route = useRoute();
+const router = useRouter();
+
+const publicacionId = route.params.id;
 
 const form = reactive({
     title: '',
-    descripcion: ''
-});
+    description: ''
+})
+
+onMounted(async () => {
+    try{
+        const response = await axios.get(`http://localhost:8080/publicaciones/${publicacionId}`);
+        form.title = response.data.title;
+        form.description = response.data.description;
+    }catch(error){
+        console.error('Error en el Fetch', error);
+    }
+})
 
 const handleSubmit = async () => {
-    const nuevaPublicacion = {
+    const actualizarPost = {
         title: form.title,
         description: form.description
     }
-    
     try{
-        const response = await axios.post('http://localhost:8080/publicaciones', nuevaPublicacion);
-        return router.push('/publicaciones')
-    } catch(error){
+        const response = await axios.put(`http://localhost:8080/publicaciones/${publicacionId}`, actualizarPost);
+        router.push(`/publicaciones/${response.data.id}`);
+    }catch(error){
         console.error('Error en el Fetch', error);
     }
-};
+}
 </script>
 
 <template>

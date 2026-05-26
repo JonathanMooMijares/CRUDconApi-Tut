@@ -1,4 +1,4 @@
-<script>
+<script setup>
 import axios from 'axios';
 import { onMounted, reactive } from 'vue';
 import { useRoute } from 'vue-router';
@@ -13,7 +13,7 @@ const state = reactive({
 onMounted(async () => {
     try{
         const response = await axios.get(`http://localhost:8080/publicaciones/${publicacionId}`);
-        state.post = responde.data;
+        state.publicacion = response.data;
     }catch(error){
         console.log('Error en el Fetch', error);
     }

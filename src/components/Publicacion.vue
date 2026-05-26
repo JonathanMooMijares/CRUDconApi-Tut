@@ -1,7 +1,7 @@
 <script setup>
 import axios from 'axios';
 import { defineProps } from 'vue';
-import {RouterLink, useRouter} from 'vue-router';
+import { RouterLink, useRouter } from 'vue-router';
 
 const router = useRouter();
 const props = defineProps({
@@ -16,7 +16,7 @@ const deletePublicacion = async (publicacionId) =>{
             router.push('/');
         }
     } catch(error){
-        console.error("Erro en el Fetch", error)
+        console.error("Error en el Fetch", error)
     }
 }
 
@@ -26,7 +26,7 @@ const deletePublicacion = async (publicacionId) =>{
 <template>
     <tr>
             <td>{{ publicacion.id }}</td>
-            <td>{{publicaicon.title}}</td>
+            <td>{{ publicacion.title}}</td>
             <td>
                 <RouterLink :to="`/publicaciones/${publicacion.id}`" class="btn btn-green">O</RouterLink>
                 <RouterLink :to="`/publicaciones/edit/${publicacion.id}`" class="btn btn-blue">/</RouterLink>
