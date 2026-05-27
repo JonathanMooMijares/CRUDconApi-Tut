@@ -27,3 +27,4 @@ onMounted(async () => {
         <RouterLink :to="`/publicaciones`" class="btn btn-green">Regresar</RouterLink>
     </div>
 </template>
+

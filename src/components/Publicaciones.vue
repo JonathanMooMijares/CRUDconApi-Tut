@@ -35,3 +35,14 @@ onMounted(async () => {
         </table>
     </div>
 </template>
+
+<style scoped>
+    .btn {
+        padding: 5px 10px;
+        margin: 0 5px;
+        text-decoration: none;
+        border: 1px solid #ccc;
+        background-color: #f0f0f0;
+        color: #333;
+    }
+</style>
