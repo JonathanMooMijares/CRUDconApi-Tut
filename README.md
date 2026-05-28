@@ -36,3 +36,8 @@ npm run dev
 ```sh
 npm run build
 ```
+### Teniendo instalado json-server usarlo paa cargar el json-server
+
+```sh
+npm run server
+```
